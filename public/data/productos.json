@@ -1,0 +1,23 @@
+[
+  {
+    "id": 1,
+    "nombre": "Collar artesanal",
+    "precio": 12000,
+    "descripcion": "Collar hecho a mano con materiales naturales.",
+    "img": "img/producto1.jpg"
+  },
+  {
+    "id": 2,
+    "nombre": "Pulsera natural",
+    "precio": 8000,
+    "descripcion": "Pulsera con piedras y diseño único.",
+    "img": "img/producto2.jpg"
+  },
+  {
+    "id": 3,
+    "nombre": "Aros hechos a mano",
+    "precio": 6000,
+    "descripcion": "Aros livianos y elegantes.",
+    "img": "img/producto3.jpg"
+  }
+]
