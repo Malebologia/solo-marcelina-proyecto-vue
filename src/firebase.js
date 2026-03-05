@@ -3,12 +3,12 @@ import { getAuth } from "firebase/auth"
 import { getFirestore } from "firebase/firestore"
 
 const firebaseConfig = {
-  apiKey: "AIzaSyA3IG6rpLYyyaDGASXEXEtQzKYXqg9jknk",
-  authDomain: "solo-marcelina-vue.firebaseapp.com",
-  projectId: "solo-marcelina-vue",
-  storageBucket: "solo-marcelina-vue.firebasestorage.app",
-  messagingSenderId: "763377991052",
-  appId: "1:763377991052:web:cb89269c487e6269b2aaa9"
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID
 }
 
 const app = initializeApp(firebaseConfig)
