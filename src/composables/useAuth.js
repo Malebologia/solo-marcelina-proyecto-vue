@@ -1,52 +1,73 @@
-import { ref, computed } from 'vue'
+import { 
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  signOut,
+  onAuthStateChanged
+} from "firebase/auth"
 
-const usuario = ref(JSON.parse(localStorage.getItem('usuarioActivo')) || null)
+import { ref } from "vue"
+import { auth } from "../firebase"
 
-const usuarios = ref(JSON.parse(localStorage.getItem('usuarios')) || [])
+const usuario = ref(null)
 
-export function useAuth() {
+export function useAuth(){
 
-    const registrar = (email, password) => {
-        const existe = usuarios.value.find(u => u.email === email)
-        if (existe) {
-            throw new Error('El usuario ya existe')
-        }
+  const registrar = async (email, password) => {
+    try{
+      const credenciales = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      )
 
-        const nuevoUsuario = {
-            id: Date.now(),
-            email,
-            password
-        }
+      usuario.value = credenciales.user
 
-        usuarios.value.push(nuevoUsuario)
-        localStorage.setItem('usuarios', JSON.stringify(usuarios.value))
+    }catch(error){
+      console.error(error)
+
+      if(error.code === "auth/email-already-in-use"){
+        alert("Este correo ya está registrado")
+      }
     }
+  }
 
-    const login = (email, password) => {
-        const encontrado = usuarios.value.find(
-            u => u.email === email && u.password === password
-        )
+  const login = async (email, password) => {
+    try{
 
-        if (!encontrado) {
-            throw new Error('Credenciales incorrectas')
-        }
+      const credenciales = await signInWithEmailAndPassword(
+        auth,
+        email,
+        password
+      )
 
-        usuario.value = encontrado
-        localStorage.setItem('usuarioActivo', JSON.stringify(encontrado))
+      usuario.value = credenciales.user
+
+    }catch(error){
+      console.error(error)
+
+      if(error.code === "auth/user-not-found"){
+        alert("Usuario no encontrado")
+      }
+
+      if(error.code === "auth/wrong-password"){
+        alert("Contraseña incorrecta")
+      }
     }
+  }
 
-    const logout = () => {
-        usuario.value = null
-        localStorage.removeItem('usuarioActivo')
-    }
+  const logout = async () => {
+    await signOut(auth)
+    usuario.value = null
+  }
 
-    const autenticado = computed(() => !!usuario.value)
+  onAuthStateChanged(auth, (user) => {
+    usuario.value = user
+  })
 
-    return {
-        usuario,
-        autenticado,
-        registrar,
-        login,
-        logout
-    }
+  return {
+    usuario,
+    registrar,
+    login,
+    logout
+  }
 }

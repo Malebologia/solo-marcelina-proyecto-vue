@@ -1,6 +1,7 @@
 <script setup>
 import { useCarrito } from '../composables/useCarrito'
 
+
 const { 
   carrito, 
   total, 
@@ -81,6 +82,10 @@ const {
 
         <button class="btn btn-dark">
           Pagar
+        </button>
+
+        <button @click="checkout">
+          Comprar
         </button>
       </div>
 

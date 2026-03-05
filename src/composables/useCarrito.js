@@ -1,4 +1,6 @@
-import { ref, watch, computed } from 'vue'
+import { ref, computed, watch } from 'vue'
+import { db } from '../firebase'
+import { doc, setDoc, getDoc, collection, addDoc, serverTimestamp } from 'firebase/firestore'
 import { useAuth } from './useAuth'
 
 const carrito = ref([])
@@ -7,29 +9,41 @@ export function useCarrito() {
 
   const { usuario } = useAuth()
 
-  const obtenerClave = () => {
-    if (!usuario.value) return null
-    return `carrito_${usuario.value.id}`
-  }
+  // 🔹 Cargar carrito del usuario
+  const cargarCarrito = async () => {
 
-  const cargarCarrito = () => {
-    const clave = obtenerClave()
-    if (!clave) {
+    if (!usuario.value) {
       carrito.value = []
       return
     }
 
-    const guardado = localStorage.getItem(clave)
-    carrito.value = guardado ? JSON.parse(guardado) : []
+    const docRef = doc(db, 'carritos', usuario.value.uid)
+    const docSnap = await getDoc(docRef)
+
+    if (docSnap.exists()) {
+      carrito.value = docSnap.data().items
+    } else {
+      carrito.value = []
+    }
+
   }
 
-  const guardarCarrito = () => {
-    const clave = obtenerClave()
-    if (!clave) return
-    localStorage.setItem(clave, JSON.stringify(carrito.value))
+  // 🔹 Guardar carrito en Firestore
+  const guardarCarrito = async () => {
+
+    if (!usuario.value) return
+
+    const docRef = doc(db, 'carritos', usuario.value.uid)
+
+    await setDoc(docRef, {
+      items: carrito.value
+    })
+
   }
 
+  // 🔹 Agregar producto
   const agregar = (producto) => {
+
     const existente = carrito.value.find(p => p.id === producto.id)
 
     if (existente) {
@@ -40,10 +54,14 @@ export function useCarrito() {
         cantidad: 1
       })
     }
+
   }
 
+  // 🔹 Disminuir producto
   const disminuir = (producto) => {
+
     const existente = carrito.value.find(p => p.id === producto.id)
+
     if (!existente) return
 
     if (existente.cantidad > 1) {
@@ -51,35 +69,95 @@ export function useCarrito() {
     } else {
       carrito.value = carrito.value.filter(p => p.id !== producto.id)
     }
+
   }
 
+  // 🔹 Vaciar carrito
   const vaciar = () => {
     carrito.value = []
   }
 
-  const total = computed(() => 
-    carrito.value.reduce(
-      (acc, item) => acc + item.precio * item.cantidad,
-      0
-    )
-  )
+  // 🔹 Total del carrito
+  const total = computed(() => {
 
-  const unidades = computed(() => 
+    return carrito.value.reduce((acc, item) => {
+      return acc + item.precio * item.cantidad
+    }, 0)
+
+  })
+
+  // 🔹 Cantidad total de productos
+  const unidades = computed(() =>
+
     carrito.value.reduce(
       (acc, item) => acc + item.cantidad,
       0
     )
+
   )
 
-  watch(usuario, cargarCarrito, { immediate: true}) 
-  watch(carrito, guardarCarrito, { deep: true })
+  // 🔹 Checkout (crear orden)
+  const checkout = async () => {
+
+    if (!usuario.value) {
+      alert("Debes iniciar sesión para comprar")
+      return
+    }
+
+    if (carrito.value.length === 0) {
+      alert("El carrito está vacío")
+      return
+    }
+
+    try {
+
+      await addDoc(collection(db, "orders"), {
+
+        userId: usuario.value.uid,
+        items: carrito.value,
+        total: total.value,
+        fecha: serverTimestamp()
+
+      })
+
+      vaciar()
+
+      alert("Compra realizada con éxito 🛍️")
+
+    } catch (error) {
+
+      console.error("Error al crear la orden:", error)
+
+    }
+
+  }
+
+  // 🔥 Cuando cambia usuario → cargar carrito
+  watch(usuario, () => {
+
+    cargarCarrito()
+
+  }, { immediate: true })
+
+
+  // 🔥 Cuando cambia carrito → guardar carrito
+  watch(carrito, () => {
+
+    guardarCarrito()
+
+  }, { deep: true })
+
 
   return {
+
     carrito,
     agregar,
     disminuir,
     vaciar,
     total,
-    unidades
+    unidades,
+    checkout
+
   }
+
 }

@@ -25,6 +25,27 @@
         🛒 {{ unidades }}
       </router-link>
 
+      <router-link
+       v-if="!usuario"
+       to="/login"
+       class="nav-btn"
+       >
+         Login
+      </router-link>
+
+      <div v-if="usuario">
+        <span class="me-2">
+          {{ usuario.email }}
+        </span>
+
+        <button
+          class="nav-btn"
+          @click="logout"
+        >
+          Salir
+        </button>
+      </div>
+
     </nav>
 
     <router-link to="/login" v-if="!usuario" class="nav-btn">
