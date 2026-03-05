@@ -1,199 +1,277 @@
-# Vue 3 + Vite
+Solo Marcelina – Tienda Artesanal (Vue + Firebase)
 
-This template should help get you started developing with Vue 3 in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+Proyecto de tienda web desarrollado inicialmente con HTML, CSS y JavaScript, posteriormente migrado a Vue 3 para mejorar la arquitectura, escalabilidad y manejo del estado de la aplicación.
 
-Learn more about IDE Support for Vue in the [Vue Docs Scaling up Guide](https://vuejs.org/guide/scaling-up/tooling.html#ide-support).
+La aplicación simula una tienda online de productos artesanales llamada Solo Marcelina, donde los usuarios pueden explorar productos, agregarlos al carrito y gestionar su compra.
 
+Tecnologías utilizadas
+Frontend
 
-🛍️ Solo Marcelina — Tienda Online con Vue 3
+Vue 3 (Composition API)
 
-Aplicación web de e-commerce desarrollada con Vue 3 + Vite, que permite visualizar productos, agregarlos a un carrito de compras y gestionar el estado global de manera reactiva.
+Vite
 
-Este proyecto corresponde a la migración de una versión estática (HTML, CSS y JS tradicional) hacia una arquitectura moderna basada en componentes y Composition API.
+Vue Router
 
-🚀 Demo
+JavaScript
 
-(Aquí puedes agregar enlace cuando lo deployes en Vercel o Netlify)
+HTML5
 
-🧰 Tecnologías Utilizadas
+CSS3
 
-⚡ Vue 3 (Composition API)
+Bootstrap
 
-⚡ Vite
+Backend / Servicios
 
-🧭 Vue Router
+Firebase Authentication (registro y login)
 
-🎨 Bootstrap 5
+Firebase Firestore (persistencia de carrito por usuario)
 
-🧪 Vitest
-
-🧪 Vue Test Utils
-
-🗂️ LocalStorage
-
-📦 JavaScript ES6+
-
-🧠 Conceptos Aplicados
-
-Componentes reutilizables
-
-Composables personalizados (useCarrito)
-
-Estado global compartido
-
-Reactividad con ref y computed
-
-Persistencia por usuario en LocalStorage
-
-Rutas dinámicas y ruta 404
-
-Formateo local de moneda (toLocaleString)
-
-Mocking y testing unitario
-
-Manejo de ramas con Git
-
-✨ Funcionalidades
-
-✅ Listado dinámico de productos
-
-✅ Vista detallada por producto
-
-✅ Carrito de compras reactivo
-
-✅ Incrementar / disminuir cantidad
-
-✅ Eliminación automática cuando cantidad = 0
-
-✅ Cálculo automático de subtotal y total
-
-✅ Persistencia por usuario
-
-✅ Navegación SPA
-
-✅ Página 404 personalizada
-
-✅ Footer dinámico con año actual
-
-✅ Pruebas unitarias
-
-🧪 Testing
-
-Se implementaron pruebas unitarias utilizando:
+Testing
 
 Vitest
 
 Vue Test Utils
 
-jsdom
+Control de versiones
 
-Componentes testeados:
+Git
 
-ProductoCard.vue
+GitHub
 
-Header.vue
+Funcionalidades principales
+°Catálogo de productos
 
-Carrito.vue
+Visualización de productos con imagen, nombre y precio.
 
-Para ejecutar los tests:
+Componentes reutilizables para las tarjetas de productos.
 
-npx vitest
-📂 Estructura del Proyecto
-src/
+°Carrito de compras
+
+Agregar productos al carrito.
+
+Aumentar o disminuir cantidades.
+
+Eliminar productos.
+
+Vaciar carrito completo.
+
+Cálculo automático del total.
+
+°Sistema de usuarios
+
+Integración con Firebase Authentication:
+
+Registro de usuarios
+
+Inicio de sesión
+
+Persistencia de sesión
+
+Manejo de estado de usuario
+
+°Persistencia de datos
+
+Se implementó Firestore para guardar el carrito de cada usuario.
+
+Cada usuario tiene su propio documento en la colección:
+
+carritos
+   └── userId
+        └── items
+
+Esto permite que:
+
+Cada usuario tenga su propio carrito
+
+El carrito se mantenga entre sesiones
+
+Los datos se carguen automáticamente al iniciar sesión
+
+°Arquitectura del proyecto
+
+El proyecto utiliza Composition API con composables para manejar la lógica.
+
+Composables principales
+useAuth.js
+
+Maneja:
+
+registro
+
+login
+
+logout
+
+estado del usuario
+
+useCarrito.js
+
+Maneja:
+
+productos del carrito
+
+agregar productos
+
+disminuir cantidades
+
+calcular total
+
+guardar en Firestore
+
+°Estructura del proyecto
+src
 │
-├── assets/
-├── components/
+├── components
 │   ├── Header.vue
 │   ├── Footer.vue
 │   └── ProductoCard.vue
 │
-├── views/
+├── views
 │   ├── Home.vue
 │   ├── Carrito.vue
+│   ├── Login.vue
+│   ├── Register.vue
+│   ├── Sobre.vue
+│   ├── Contacto.vue
 │   └── NotFound.vue
 │
-├── composables/
+├── composables
+│   ├── useAuth.js
 │   └── useCarrito.js
 │
-├── router/
+├── firebase.js
+├── router
 │   └── index.js
 │
-├── tests/
-│   ├── ProductoCard.test.js
-│   ├── Header.test.js
-│   └── Carrito.test.js
-│
-└── main.js
-🔐 Estado Global (Carrito)
+└── tests
+    ├── Header.test.js
+    ├── ProductoCard.test.js
+    └── Carrito.test.js
+ °Pruebas unitarias
 
-El estado del carrito se implementa mediante un composable personalizado:
+Se implementaron pruebas unitarias con Vitest para validar componentes clave.
 
-useCarrito()
+Componentes testeados
+Header.vue
 
-Características:
+Verifica que el nombre de la tienda se renderice correctamente.
 
-Estado compartido global
+ProductoCard.vue
 
-Persistencia por usuario
+Valida que:
 
-Cálculo automático de totales
+el nombre del producto se muestre
 
-Sin duplicación de productos
+el precio se renderice correctamente.
 
-Manejo seguro de cantidad
+Carrito.vue
 
-🌿 Flujo de Trabajo con Git
+Comprueba que:
 
-El proyecto fue organizado usando ramas:
+el mensaje de carrito vacío se muestre cuando corresponde.
 
-main → versión estable
+°Mejoras de UI implementadas
 
-migration/vue-version → migración a Vue
+Se desarrolló un tema visual personalizado con estilo artesanal utilizando variables CSS:
 
-Se utilizó GitHub Desktop para manejo visual del repositorio.
+:root{
+  --coffee-1: #f6efe8;
+  --coffee-2: #eadccb;
+  --coffee-3: #d8bfa8;
+  --coffee-4: #b58a62;
+  --coffee-5: #8b5e3c;
+}
 
-🧱 Instalación
+Se añadieron mejoras como:
 
-Clonar el repositorio:
+Navbar personalizada
 
-git clone https://github.com/Malebologia/solo_marcelina_proyecto.git
+Botones estilizados
+
+Animación del contador del carrito
+
+Toast de notificación
+
+Footer informativo
+
+Diseño responsive
+
+°Manejo de estado
+
+El estado global se maneja mediante composables en lugar de Vuex o Pinia.
+
+Ventajas:
+
+código más simple
+
+reutilización de lógica
+
+menor complejidad para proyectos pequeños
+
+°Instalación del proyecto
+
+Clonar repositorio:
+
+git clone https://github.com/Malebologia/solo-marcelina-proyecto-vue.git
+
+Entrar al proyecto:
+
+cd solo-marcelina-proyecto-vue
 
 Instalar dependencias:
 
 npm install
 
-Ejecutar en desarrollo:
+Ejecutar proyecto:
 
 npm run dev
-📈 Evolución del Proyecto
+ °Ejecutar pruebas
+npx vitest
+ °Mejoras implementadas respecto a la versión original
 
-Versión 1:
+Migración completa de:
 
-HTML + CSS + JS tradicional
+HTML + CSS + JS
 
-Versión 2:
+a
 
-Migración completa a Vue 3
+Vue 3 + Vite + Firebase
 
-Componentización
+Principales mejoras:
 
-Estado global reactivo
+✔ Arquitectura basada en componentes
+✔ Manejo de estado reactivo
+✔ Persistencia en base de datos
+✔ Autenticación de usuarios
+✔ Código modular y escalable
+✔ Testing automatizado
+✔ Mejor organización del proyecto
 
-Testing unitario
+ °Mejoras futuras
 
-Próximas mejoras posibles:
+Implementar Firebase Hosting
 
-Implementación con Pinia
+Integrar pasarela de pago
 
-Backend real con API
+Agregar panel de administración
 
-Autenticación real
+Gestión de productos desde Firestore
 
-Deploy en producción
+Historial de pedidos por usuario
 
-GitHub Actions
+Protección de rutas privadas
 
-👨‍💻 Autor
+ °Autor
 
 Alonso Soto
-Desarrollador Frontend en formación
+
+Proyecto desarrollado como parte de portafolio de desarrollo frontend.
+
+GitHub:
+
+https://github.com/Malebologia
+
+⭐ Demo
+
+(Próximamente con Firebase Hosting)
