@@ -1,125 +1,163 @@
-Solo Marcelina – Tienda Artesanal (Vue + Firebase)
+# 🛍️ Solo Marcelina – Tienda Artesanal
 
-Proyecto de tienda web desarrollado inicialmente con HTML, CSS y JavaScript, posteriormente migrado a Vue 3 para mejorar la arquitectura, escalabilidad y manejo del estado de la aplicación.
+**Vue 3 + Firebase**
 
-La aplicación simula una tienda online de productos artesanales llamada Solo Marcelina, donde los usuarios pueden explorar productos, agregarlos al carrito y gestionar su compra.
+Aplicación web que simula una **tienda online de productos artesanales**, donde los usuarios pueden explorar productos, agregarlos al carrito y gestionar su compra.
 
-Tecnologías utilizadas
-Frontend
+El proyecto fue desarrollado como parte de mi proceso de aprendizaje en **desarrollo frontend moderno**, enfocándome en arquitectura de aplicaciones con **Vue 3, manejo de estado y persistencia de datos con Firebase**.
 
-Vue 3 (Composition API)
+---
 
-Vite
+# 📖 Historia del Proyecto
 
-Vue Router
+Este proyecto comenzó como una tienda web simple desarrollada con **HTML, CSS y JavaScript**.
 
-JavaScript
+A medida que avanzaba en mi aprendizaje de frameworks modernos decidí **migrar completamente la aplicación a Vue 3**, con el objetivo de:
 
-HTML5
+* mejorar la **arquitectura del proyecto**
+* aplicar **componentización**
+* implementar **manejo de estado reactivo**
+* integrar **autenticación y persistencia de datos**
 
-CSS3
+La migración permitió transformar una aplicación estática en una **SPA moderna con autenticación de usuarios y almacenamiento en la nube**.
 
-Bootstrap
+---
 
-Backend / Servicios
+# 👨‍💻 Mi Rol en el Proyecto
 
-Firebase Authentication (registro y login)
+En este proyecto fui responsable de todo el desarrollo:
 
-Firebase Firestore (persistencia de carrito por usuario)
+* Diseño de la arquitectura del proyecto
+* Migración del proyecto a **Vue 3**
+* Implementación de **Firebase Authentication**
+* Persistencia de datos con **Firestore**
+* Creación de **composables reutilizables**
+* Desarrollo de **pruebas unitarias**
+* Diseño de interfaz y experiencia de usuario
 
-Testing
+---
 
-Vitest
+# 🚀 Demo
 
-Vue Test Utils
+🔗 Portafolio
+https://malebologia.github.io/portafolio/
 
-Control de versiones
+🔗 Versión inicial del proyecto
+https://malebologia.github.io/solo_marcelina_proyecto/
 
-Git
+⭐ Próximamente: versión completa desplegada con **Firebase Hosting**
 
-GitHub
+---
 
-Funcionalidades principales
-°Catálogo de productos
+# 🛠 Tecnologías Utilizadas
 
-Visualización de productos con imagen, nombre y precio.
+## Frontend
 
-Componentes reutilizables para las tarjetas de productos.
+* Vue 3 (Composition API)
+* Vite
+* Vue Router
+* JavaScript
+* HTML5
+* CSS3
+* Bootstrap
 
-°Carrito de compras
+## Backend / Servicios
 
-Agregar productos al carrito.
+* Firebase Authentication
+* Firebase Firestore
 
-Aumentar o disminuir cantidades.
+## Testing
 
-Eliminar productos.
+* Vitest
+* Vue Test Utils
 
-Vaciar carrito completo.
+## Control de versiones
 
-Cálculo automático del total.
+* Git
+* GitHub
 
-°Sistema de usuarios
+---
 
-Integración con Firebase Authentication:
+# ✨ Funcionalidades Principales
 
-Registro de usuarios
+## 🛒 Catálogo de Productos
 
-Inicio de sesión
+* Visualización de productos con imagen, nombre y precio
+* Componentes reutilizables para las tarjetas de productos
 
-Persistencia de sesión
+---
 
-Manejo de estado de usuario
+## 🧺 Carrito de Compras
 
-°Persistencia de datos
+* Agregar productos al carrito
+* Aumentar o disminuir cantidades
+* Eliminar productos
+* Vaciar carrito completo
+* Cálculo automático del total
 
-Se implementó Firestore para guardar el carrito de cada usuario.
+---
 
-Cada usuario tiene su propio documento en la colección:
+## 👤 Sistema de Usuarios
 
+Integración con **Firebase Authentication**:
+
+* Registro de usuarios
+* Inicio de sesión
+* Persistencia de sesión
+* Manejo de estado del usuario
+
+---
+
+## ☁ Persistencia de Datos
+
+Se implementó **Firestore** para guardar el carrito de cada usuario.
+
+Estructura de datos:
+
+```
 carritos
-   └── userId
-        └── items
+ └── userId
+      └── items
+```
 
 Esto permite que:
 
-Cada usuario tenga su propio carrito
+* cada usuario tenga su propio carrito
+* el carrito se mantenga entre sesiones
+* los datos se carguen automáticamente al iniciar sesión
 
-El carrito se mantenga entre sesiones
+---
 
-Los datos se carguen automáticamente al iniciar sesión
+# 🧠 Arquitectura del Proyecto
 
-°Arquitectura del proyecto
+La aplicación utiliza **Composition API** con **composables** para separar la lógica del estado y mejorar la reutilización del código.
 
-El proyecto utiliza Composition API con composables para manejar la lógica.
+## Composables principales
 
-Composables principales
-useAuth.js
-
-Maneja:
-
-registro
-
-login
-
-logout
-
-estado del usuario
-
-useCarrito.js
+### useAuth.js
 
 Maneja:
 
-productos del carrito
+* registro de usuarios
+* login
+* logout
+* estado del usuario autenticado
 
-agregar productos
+### useCarrito.js
 
-disminuir cantidades
+Maneja:
 
-calcular total
+* productos del carrito
+* agregar productos
+* disminuir cantidades
+* calcular total
+* guardar datos en Firestore
 
-guardar en Firestore
+---
 
-°Estructura del proyecto
+# 📂 Estructura del Proyecto
+
+```
 src
 │
 ├── components
@@ -141,6 +179,7 @@ src
 │   └── useCarrito.js
 │
 ├── firebase.js
+│
 ├── router
 │   └── index.js
 │
@@ -148,91 +187,113 @@ src
     ├── Header.test.js
     ├── ProductoCard.test.js
     └── Carrito.test.js
- °Pruebas unitarias
+```
 
-Se implementaron pruebas unitarias con Vitest para validar componentes clave.
+---
 
-Componentes testeados
-Header.vue
+# 🧪 Pruebas Unitarias
 
-Verifica que el nombre de la tienda se renderice correctamente.
+Se implementaron pruebas con **Vitest** para validar componentes clave.
 
-ProductoCard.vue
+### Componentes testeados
+
+**Header.vue**
+
+* Verifica que el nombre de la tienda se renderice correctamente.
+
+**ProductoCard.vue**
 
 Valida que:
 
-el nombre del producto se muestre
+* el nombre del producto se muestre correctamente
+* el precio se renderice correctamente
 
-el precio se renderice correctamente.
-
-Carrito.vue
+**Carrito.vue**
 
 Comprueba que:
 
-el mensaje de carrito vacío se muestre cuando corresponde.
+* el mensaje de carrito vacío se muestre cuando corresponde
 
-°Mejoras de UI implementadas
+---
 
-Se desarrolló un tema visual personalizado con estilo artesanal utilizando variables CSS:
+# 🎨 Mejoras de UI Implementadas
 
+Se desarrolló un **tema visual artesanal personalizado** utilizando variables CSS.
+
+```
 :root{
-  --coffee-1: #f6efe8;
-  --coffee-2: #eadccb;
-  --coffee-3: #d8bfa8;
-  --coffee-4: #b58a62;
-  --coffee-5: #8b5e3c;
+ --coffee-1: #f6efe8;
+ --coffee-2: #eadccb;
+ --coffee-3: #d8bfa8;
+ --coffee-4: #b58a62;
+ --coffee-5: #8b5e3c;
 }
+```
 
-Se añadieron mejoras como:
+Mejoras visuales implementadas:
 
-Navbar personalizada
+* Navbar personalizada
+* Botones estilizados
+* Animación del contador del carrito
+* Toast de notificación
+* Footer informativo
+* Diseño responsive
 
-Botones estilizados
+---
 
-Animación del contador del carrito
+# 🧠 Manejo de Estado
 
-Toast de notificación
+El estado global se maneja mediante **composables** en lugar de Vuex o Pinia.
 
-Footer informativo
+Ventajas de esta estrategia:
 
-Diseño responsive
+* código más simple
+* menor complejidad para proyectos pequeños
+* reutilización de lógica entre componentes
 
-°Manejo de estado
+---
 
-El estado global se maneja mediante composables en lugar de Vuex o Pinia.
-
-Ventajas:
-
-código más simple
-
-reutilización de lógica
-
-menor complejidad para proyectos pequeños
-
-°Instalación del proyecto
+# ⚙ Instalación del Proyecto
 
 Clonar repositorio:
 
+```
 git clone https://github.com/Malebologia/solo-marcelina-proyecto-vue.git
+```
 
 Entrar al proyecto:
 
+```
 cd solo-marcelina-proyecto-vue
+```
 
 Instalar dependencias:
 
+```
 npm install
+```
 
 Ejecutar proyecto:
 
+```
 npm run dev
- °Ejecutar pruebas
+```
+
+---
+
+# 🧪 Ejecutar pruebas
+
+```
 npx vitest
- °Mejoras implementadas respecto a la versión original
+```
+
+---
+
+# 🔄 Mejoras respecto a la versión original
 
 Migración completa de:
 
-HTML + CSS + JS
+HTML + CSS + JavaScript
 
 a
 
@@ -248,30 +309,24 @@ Principales mejoras:
 ✔ Testing automatizado
 ✔ Mejor organización del proyecto
 
- °Mejoras futuras
+---
 
-Implementar Firebase Hosting
+# 🚧 Mejoras Futuras
 
-Integrar pasarela de pago
+* Implementar **Firebase Hosting**
+* Integrar **pasarela de pago**
+* Crear **panel de administración**
+* Gestión de productos desde Firestore
+* Historial de pedidos por usuario
+* Protección de rutas privadas
 
-Agregar panel de administración
+---
 
-Gestión de productos desde Firestore
+# 👨‍💻 Autor
 
-Historial de pedidos por usuario
+**Alonso Soto**
 
-Protección de rutas privadas
+Frontend Developer
 
- °Autor
-
-Alonso Soto
-
-Proyecto desarrollado como parte de portafolio de desarrollo frontend.
-
-GitHub:
-
+GitHub
 https://github.com/Malebologia
-
-⭐ Demo
-
-(Próximamente con Firebase Hosting)
