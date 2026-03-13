@@ -14,28 +14,29 @@ const agregarAlCarrito = () => {
 </script>
 
 <template>
-  <div class="card h-100 producto-card">
+  <article class="card h-100 producto-card" :aria-label="`Producto: ${producto.nombre}`">
 
-    <router-link :to="`/producto/${producto.id}`">
+    <router-link :to="`/producto/${producto.id}`" :aria-label="`Ver detalle de ${producto.nombre}`">
      <img
       :src="producto.img"
-      :alt="producto.nombre"
+      :alt="`Imagen de ${producto.nombre}`"
       class="card-img-top producto-img"
      />
     </router-link>
 
     <div class="card-body d-flex flex-column">
-      <h5>{{ producto.nombre }}</h5>
-      <p>${{ producto.precio.toLocaleString('es-CL') }}</p>
+      <h5 aria-hidden="true">{{ producto.nombre }}</h5>
+      <p :aria-label="`Precio: ${producto.precio} pesos`">${{ producto.precio.toLocaleString('es-CL') }}</p>
 
       <button
         class="btn btn-dark mt-auto"
         @click="agregarAlCarrito"
+        :aria-label="`Añadir ${producto.nombre} al carrito`"
       >
         Agregar al carrito
       </button>
     </div>
-  </div>
+  </article>
 </template>
 
 <style scoped>

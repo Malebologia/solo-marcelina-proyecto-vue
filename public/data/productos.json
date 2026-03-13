@@ -1,23 +1,44 @@
 [
   {
     "id": 1,
-    "nombre": "Collar artesanal",
-    "precio": 12000,
-    "descripcion": "Collar hecho a mano con materiales naturales.",
-    "img": "img/producto1.jpg"
+    "nombre": "Serum facial",
+    "precio": 13436,
+    "descripcion": "Serum revitalizante enriquecido con vitaminas y extractos botánicos.",
+    "img": "https://placehold.co/400x400/faf5f0/5c4738?text=Serum"
   },
   {
     "id": 2,
-    "nombre": "Pulsera natural",
-    "precio": 8000,
-    "descripcion": "Pulsera con piedras y diseño único.",
-    "img": "img/producto2.jpg"
+    "nombre": "Corrector de ojos",
+    "precio": 8394,
+    "descripcion": "Corrector iluminador de textura ligera para ojeras y rojeces.",
+    "img": "https://placehold.co/400x400/eedcd3/5c4738?text=Corrector"
   },
   {
     "id": 3,
-    "nombre": "Aros hechos a mano",
-    "precio": 6000,
-    "descripcion": "Aros livianos y elegantes.",
-    "img": "img/producto3.jpg"
+    "nombre": "Crema hidratante",
+    "precio": 15957,
+    "descripcion": "Crema facial de día ultra hidratante para todo tipo de piel.",
+    "img": "https://placehold.co/400x400/d1bfae/5c4738?text=Crema"
+  },
+  {
+    "id": 4,
+    "nombre": "Tónico calmante",
+    "precio": 10915,
+    "descripcion": "Tónico refrescante a base de agua de rosas y manzanilla.",
+    "img": "https://placehold.co/400x400/faf5f0/5c4738?text=Tonico"
+  },
+  {
+    "id": 5,
+    "nombre": "Bálsamo labial",
+    "precio": 5033,
+    "descripcion": "Bálsamo nutritivo con manteca de karité y cera de abeja.",
+    "img": "https://placehold.co/400x400/eedcd3/5c4738?text=Balsamo"
+  },
+  {
+    "id": 6,
+    "nombre": "Exfoliante de café",
+    "precio": 10075,
+    "descripcion": "Exfoliante corporal natural con granos de café y aceite de almendras.",
+    "img": "https://placehold.co/400x400/d1bfae/5c4738?text=Exfoliante"
   }
 ]

@@ -77,13 +77,23 @@ export function useCarrito() {
     carrito.value = []
   }
 
-  // 🔹 Total del carrito
-  const total = computed(() => {
+  // 🔹 Subtotal del carrito
+  const subtotal = computed(() => {
 
     return carrito.value.reduce((acc, item) => {
       return acc + item.precio * item.cantidad
     }, 0)
 
+  })
+
+  // 🔹 IVA (19%)
+  const iva = computed(() => {
+    return Math.round(subtotal.value * 0.19)
+  })
+
+  // 🔹 Total del carrito
+  const total = computed(() => {
+    return subtotal.value + iva.value
   })
 
   // 🔹 Cantidad total de productos
@@ -127,6 +137,7 @@ export function useCarrito() {
     } catch (error) {
 
       console.error("Error al crear la orden:", error)
+      throw error
 
     }
 
@@ -154,6 +165,8 @@ export function useCarrito() {
     agregar,
     disminuir,
     vaciar,
+    subtotal,
+    iva,
     total,
     unidades,
     checkout
